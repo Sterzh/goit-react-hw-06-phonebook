@@ -1,18 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const filterInitialState = [];
+const filterInitialState = '';
 
 const filterSlice = createSlice({
-  name: 'contacts',
+  name: 'filter',
   initialState: filterInitialState,
   reducers: {
-    loadLocalStorageContacts(state, action) {
+    filterStorageContacts(state, action) {
       console.log(state);
       console.log(action);
     },
   },
 });
 
-export const { loadLocalStorageContacts } = filterSlice.actions;
+export const { filterStorageContacts } = filterSlice.actions;
 
 export const filterReducer = filterSlice.reducer;
