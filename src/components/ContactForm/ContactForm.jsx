@@ -2,33 +2,41 @@ import { nanoid } from 'nanoid';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/contactsSlice';
+import { useState } from 'react';
 
 export default function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.contacts);
-  const newContact = {};
+  const [id, setId] = useState('');
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
   const handleChange = event => {
     const { name, value } = event.target;
-    name === 'name' ? (newContact.name = value) : (newContact.number = value);
-    newContact.id = nanoid();
+    name === 'name' ? setName(value) : setNumber(value);
+    setId(nanoid());
   };
 
   const handleSubmit = e => {
     e.preventDefault();
 
-    if (newContact.name !== '') {
+    if (name !== '') {
       const checkName = contacts.find(contact => {
-        return contact.name === newContact.name;
+        return contact.name === name;
       });
 
       checkName === undefined
-        ? dispatch(addContact(newContact))
-        : alert([newContact.name] + ': is already in contacts');
+        ? dispatch(addContact({ id: id, name: name, number: number }))
+        : alert([name] + ': is already in contacts');
     }
 
-    // newContact.name = '';
-    // newContact.number = '';
+    reset();
+  };
+
+  const reset = () => {
+    setId('');
+    setName('');
+    setNumber('');
   };
 
   return (
@@ -41,7 +49,7 @@ export default function ContactForm() {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          value={newContact.name}
+          value={name}
           onChange={handleChange}
           className={css.inputForm}
         />
@@ -54,7 +62,7 @@ export default function ContactForm() {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          value={newContact.number}
+          value={number}
           onChange={handleChange}
           className={css.inputForm}
         />
