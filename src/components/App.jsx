@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
-import { useDispatch, useSelector } from 'react-redux';
-import { loadLocalStorageContacts } from '../redux/contactsSlice';
+import { useSelector } from 'react-redux';
+// import { loadLocalStorageContacts } from '../redux/contactsSlice';
 
 // import { loadLocalStorageContacts, addContact } from '../redux/actions';
 // import { useDispatch } from 'react-redux';
 
 export default function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts);
-  const loadContacts = JSON.parse(localStorage.getItem('contacts')) ?? [];
-  dispatch(loadLocalStorageContacts(loadContacts));
+  // const loadContacts = JSON.parse(localStorage.getItem('contacts')) ?? [];
+  // dispatch(loadLocalStorageContacts(loadContacts));
 
   // const [contacts, setContacts] = useState(() => {
   //   return JSON.parse(localStorage.getItem('contacts')) ?? [];
@@ -20,9 +20,9 @@ export default function App() {
 
   const [filter, setFilter] = useState('');
 
-  const formSubmitHandler = data => {
-    // setContacts(prevContacts => [...prevContacts, data]);
-  };
+  // const formSubmitHandler = data => {
+  //   // setContacts(prevContacts => [...prevContacts, data]);
+  // };
 
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
@@ -42,7 +42,7 @@ export default function App() {
   return (
     <>
       <h1>Phonebook</h1>
-      <ContactForm contacts={contacts} onSubmit={formSubmitHandler} />
+      <ContactForm />
       <h2>Contacts</h2>
       <Filter contacts={contacts} onchange={filterHandler} />
       <ContactList
