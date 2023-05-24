@@ -2,8 +2,16 @@ import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 
 export default function ContactForm(props) {
+  const dispatch = useDispatch();
+
+  const contacts = useSelector(state => state.contacts);
+
+  // console.log(contacts);
+
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -16,6 +24,8 @@ export default function ContactForm(props) {
 
   const handleSubmit = e => {
     e.preventDefault();
+
+    dispatch(addContact({ id: id, name: name, number: number }));
 
     if (name !== '') {
       const checkName = props.contacts.find(contact => {

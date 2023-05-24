@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types';
 import css from './ContactList.module.css';
+import { useSelector } from 'react-redux';
 
 const ContactList = ({ contactsList, onClick }) => {
-  // console.log(this.props);
+  const getContacts = useSelector(state => state.contacts);
+
+  console.log(getContacts);
 
   return (
     <ul className={css.contactList}>
-      {contactsList.map(e => {
+      {getContacts.map(e => {
         return (
           <li className={css.contactListItem} key={e.id}>
             {e.name}: {e.number}
