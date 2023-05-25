@@ -12,13 +12,12 @@ const contactsSlice = createSlice({
       },
       prepare: payload => ({ payload }),
     },
-    deleteContact(state, action) {
+    deleteContact: (state, action) => {
       const index = state.findIndex(e => e.id === action.payload);
       state.splice(index, 1);
     },
   },
 });
 
-export const { loadLocalStorageContacts, addContact, deleteContact } =
-  contactsSlice.actions;
+export const { addContact, deleteContact } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;

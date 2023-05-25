@@ -34,16 +34,16 @@ export default function ContactForm() {
   };
 
   const reset = () => {
-    setId('');
     setName('');
     setNumber('');
   };
 
   return (
     <form onSubmit={handleSubmit} className={css.contactForm}>
-      <label htmlFor="">
+      <label htmlFor="name">
         Name
         <input
+          id="name"
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -52,11 +52,13 @@ export default function ContactForm() {
           value={name}
           onChange={handleChange}
           className={css.inputForm}
+          autoComplete="true"
         />
       </label>
-      <label htmlFor="">
+      <label htmlFor="number">
         Number
         <input
+          id="number"
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

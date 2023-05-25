@@ -9,15 +9,17 @@ export default function Filter(props) {
   const [filter, setFilter] = useState('');
 
   const handleChange = event => {
-    setFilter(event.target.value);
+    setFilter(event.target.value.trim());
     const filterUpdateContacts = contacts.filter(contact => {
       return contact.name
         .toLowerCase()
-        .includes(event.target.value.toLowerCase());
+        .includes(event.target.value.toLowerCase().trim());
     });
 
     dispatch(filterStorageContacts(filterUpdateContacts));
   };
 
-  return <input type="text" onChange={handleChange} value={filter} />;
+  return (
+    <input name="filter" type="text" onChange={handleChange} value={filter} />
+  );
 }
